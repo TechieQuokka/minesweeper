@@ -47,6 +47,7 @@ Type=Application
 Name=Mine
 Exec=$(go env GOPATH)/bin/mine
 Icon=mine-minesweeper
+StartupWMClass=mine-minesweeper
 Terminal=false
 Categories=Game;LogicGame;
 EOF

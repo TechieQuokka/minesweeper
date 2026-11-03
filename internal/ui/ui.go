@@ -18,8 +18,18 @@ func Run(level game.Level, onEnd EndFunc) error {
 	ebiten.SetWindowSize(w, h)
 	ebiten.SetWindowTitle("mine — " + level.Name)
 	ebiten.SetWindowIcon(windowIcons())
-	return ebiten.RunGame(newApp(level, onEnd))
+	return ebiten.RunGameWithOptions(newApp(level, onEnd), &ebiten.RunGameOptions{
+		// GNOME and other docks ignore the window icon and instead match
+		// WM_CLASS against desktop entries; it must equal the desktop file
+		// name (or its StartupWMClass) for the taskbar to show our icon.
+		X11ClassName:    AppID,
+		X11InstanceName: AppID,
+	})
 }
+
+// AppID identifies the app to the desktop: it is the WM_CLASS of the window
+// and the expected basename of the desktop entry and icon.
+const AppID = "mine-minesweeper"
 
 type app struct {
 	level game.Level
