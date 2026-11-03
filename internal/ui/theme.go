@@ -26,6 +26,7 @@ var (
 	colWrong      = rgb(0xff, 0x6b, 0x6b)
 	colFace       = rgb(0xf4, 0xc5, 0x42)
 	colFaceInk    = rgb(0x1b, 0x1c, 0x20)
+	colFaceRim    = rgb(0xc9, 0x9a, 0x1e) // app icon only: keeps the face crisp at small sizes
 )
 
 // numberColors[n] is the color of the digit n (1..8).

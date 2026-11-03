@@ -3,7 +3,7 @@
 A minesweeper game for the desktop, written in Go with [Ebitengine](https://ebitengine.org/).
 
 Classic rules and controls, with a clean, flat, dark-only look.
-All graphics are drawn in code; there are no image assets.
+All graphics, including the app icon, are drawn in code; there are no image assets.
 
 <p>
   <img src="docs/playing-medium.png" alt="A medium game in progress" width="300">
@@ -32,6 +32,24 @@ Or from a clone:
 
 ```sh
 go install ./cmd/mine
+```
+
+To show the game in your Linux app menu, export the icon and add a desktop entry:
+
+```sh
+go run ./tools/mkicon -out assets
+for s in 16 32 48 64 128 256 512; do
+  install -Dm644 assets/icon-$s.png ~/.local/share/icons/hicolor/${s}x${s}/apps/mine-minesweeper.png
+done
+cat > ~/.local/share/applications/mine-minesweeper.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=Mine
+Exec=$(go env GOPATH)/bin/mine
+Icon=mine-minesweeper
+Terminal=false
+Categories=Game;LogicGame;
+EOF
 ```
 
 ## Usage
@@ -91,6 +109,7 @@ Project layout:
 cmd/mine/        CLI entry point
 internal/game/   game rules (pure Go)
 internal/ui/     Ebitengine rendering and input
+tools/mkicon/    exports the app icon as PNG files
 SPEC.md          detailed behavior specification
 ```
 

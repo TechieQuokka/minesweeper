@@ -17,6 +17,7 @@ func Run(level game.Level, onEnd EndFunc) error {
 	w, h := windowSize(level.Width, level.Height)
 	ebiten.SetWindowSize(w, h)
 	ebiten.SetWindowTitle("mine — " + level.Name)
+	ebiten.SetWindowIcon(windowIcons())
 	return ebiten.RunGame(newApp(level, onEnd))
 }
 
